@@ -1,0 +1,210 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "crosszoo"
+version = "1.0.0"
+packages = [{ include = "crosszoo", from = "src" }]
+description = "Tools for CrossZoo in Innopolis Univiersity."
+authors = ["Ivan Izmailov <https://t.me/smthngslv>"]
+
+[tool.poetry.dependencies]
+python = "==3.11.*"
+pydantic = "^2.6.3"
+pydantic-settings = "^2.2.1"
+aiohttp = "^3.9.3"
+pytelegrambotapi = "^4.16.1"
+
+
+[tool.poetry.group.dev.dependencies]
+# Linting and typing.
+mypy = "^1.8.0"
+ruff = "^0.3.0"
+poetry = "^1.8.1"
+
+
+[tool.ruff]
+src = ["src"]
+line-length = 120
+# Python 3.10.
+target-version = "py310"
+# Group violations by containing file. By default, always show source code snippets.
+output-format = "full"
+
+[tool.ruff.lint]
+# Avoid automatically removing unused imports in __init__.py files.
+ignore-init-module-imports = true
+# Disable warinings on this tags.
+task-tags = ["TODO"]
+# Rules.
+select = [
+    # pycodestyle.
+    "E", "W",
+    # Pyflakes.
+    "F",
+    # isort.
+    "I",
+    # pydocstyle.
+    "D",
+    # pyupgrade.
+    "UP",
+    # pep8-naming.
+    "N",
+    # flake8-2020.
+    "YTT",
+    # flake8-annotations.
+    "ANN",
+    # flake8-async.
+    "ASYNC",
+    # flake8-bandit.
+    "S",
+    # flake8-blind-except.
+    "BLE",
+    # flake8-boolean-trap.
+    "FBT",
+    # flake8-bugbear.
+    "B",
+    # flake8-builtins.
+    "A",
+    # flake8-commas.
+    "COM",
+    # flake8-comprehensions.
+    "C4",
+    # flake8-datetimez.
+    "DTZ",
+    # flake8-debugger.
+    "T10",
+    # flake8-errmsg.
+    "EM",
+    # flake8-implicit-str-concat.
+    "ISC",
+    # flake8-import-conventions.
+    "ICN",
+    # flake8-logging-format.
+    "G",
+    # flake8-no-pep420.
+    "INP",
+    # flake8-pie.
+    "PIE",
+    # flake8-print.
+    "T20",
+    # flake8-pyi.
+    "PYI",
+    # flake8-pytest-style.
+    "PT",
+    # flake8-quotes.
+    "Q",
+    # flake8-return.
+    "RET",
+    # flake8-self.
+    "SLF",
+    # flake8-slots.
+    "SLOT",
+    # flake8-simplify.
+    "SIM",
+    # flake8-tidy-imports.
+    "TID",
+    # flake8-gettext.
+    "INT",
+    # flake8-unused-arguments.
+    "ARG",
+    # flake8-use-pathlib.
+    "PTH",
+    # eradicate.
+    "ERA",
+    # pandas-vet.
+    "PD",
+    # pygrep-hooks.
+    "PGH",
+    # Pylint.
+    "PLC", "PLE", "PLR", "PLW",
+    # Numpy.
+    "NPY",
+    # Perflint.
+    "PERF",
+    # Ruff-specific rules.
+    "RUF",
+]
+# Ignore.
+ignore = [
+    # Missing docstring in public module.
+    "D100",
+    # Missing docstring in public class.
+    "D101",
+    # Missing docstring in public method.
+    "D102",
+    # Missing docstring in public function.
+    "D103",
+    # Missing docstring in public package.
+    "D104",
+    # Missing docstring in public magic method.
+    "D105",
+    # Missing docstring in public nested class.
+    "D106",
+    # Missing docstring in __init__ method.
+    "D107",
+    # One-line docstring should fit on one line.
+    "D200",
+    # Multi-line docstring summary should start at the first line,
+    "D212",
+    # Dynamically typed expressions (typing.Any) are disallowed.
+    "ANN401",
+    # Shorted imports (numpy as np, etc).
+    "ICN001",
+    # Import from {module} instead: {names}
+    "UP035",
+    # Do not catch blind exception: `Exception`.
+    "BLE001",
+    # Prefer next({iterable}) over single element slice.
+    "RUF015",
+    # Avoid confilicts with ruff formatter.
+    "COM812",
+    "ISC001",
+    # Functional stuff.
+    "SIM110"
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = true
+
+[tool.ruff.lint.isort]
+# Combines "as" imports on the same line.
+combine-as-imports = true
+# Place "closer" imports (fewer . characters, most local) before "further" imports.
+relative-imports-order = "closest-to-furthest"
+split-on-trailing-comma = false
+
+[tool.ruff.lint.flake8-tidy-imports]
+# Disallow all relative imports.
+ban-relative-imports = "all"
+
+[tool.ruff.lint.pep8-naming]
+# Allow Pydantic's `@validator` decorator to trigger class method treatment.
+classmethod-decorators = ["classmethod", "pydantic.validator", "pydantic.root_validator"]
+
+[tool.ruff.lint.pycodestyle]
+max-doc-length = 120
+
+[tool.ruff.lint.pydocstyle]
+# Use Google-style docstrings.
+convention = "google"
+
+[tool.ruff.lint.flake8-annotations]
+# Suppress ANN000-level violations for arguments matching the "dummy" variable regex (like _).
+suppress-dummy-args = true
+
+[tool.ruff.lint.flake8-bugbear]
+# Allow default arguments like, e.g., `data: list[str] = fastapi.Query(None)`.
+extend-immutable-calls = [
+    "fastapi.Depends", "fastapi.Query", "fastapi.Body", "fastapi.Path", "fastapi.Header", "fastapi.security.HTTPBearer"
+]
+
+[tool.mypy]
+disable_error_code = ["misc"]
+
+[[tool.mypy.overrides]]
+module = ["telebot.*"]
+ignore_missing_imports = true
